@@ -1,0 +1,9 @@
+(version 1)
+(rule "EthernetToPour"
+   (constraint clearance (min 0.75mm))
+   (condition "(A.NetName == '/E_TXD*' || A.NetName == '/E_RXD*') && (B.Type == 'Zone' && B.NetName == 'GND')"))
+
+(rule "HIV-In-U5"
+	(constraint clearance (min 0.2mm))
+	(condition "A.NetClass == 'HI_V' && A.intersectsCourtyard('U1')")
+)

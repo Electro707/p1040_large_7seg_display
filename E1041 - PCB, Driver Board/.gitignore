@@ -1,0 +1,15 @@
+# Exclude generated stuff
+Gerbers/
+PDFs/
+# Any generated files in this directory
+*.zip
+*.pdf
+*.csv
+*.step
+# KiCAD Backups
+*-backups/
+*.bak
+# Exclude external step files
+ExternalSTEP/
+
+fp-info-cache
