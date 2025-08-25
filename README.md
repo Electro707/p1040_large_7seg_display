@@ -15,6 +15,8 @@ IMAGE COMING SOON!
     - C1048: Dowel
 - E1041: PCB, Driver board, KiCAD
 - E1042: PCB, Pin to Connector Adapter, KiCAD
+- F1043: A demo quick firmware for testing
+- F1044: Main Firmware
 - `misc`: Miscellaneous files. Right now only the spreadsheet I used for some calculations exists
 - `release`: Latest exported build files, includes Schematic, BOM, Gerber, and STL files
 

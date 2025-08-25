@@ -1,0 +1,138 @@
+= F1044 - Large 7-Seg Display Firmware
+rev A-dev
+
+== Purpose
+The purpose of this document is to describe the F1044 firmware.
+
+== Development Information
+
+=== Toolchain
+The following tools and libraries are used to build this library:
+
+[%autowidth]
+|===
+|Type|Name|Revision
+
+|IDE
+|Arduino IDE
+|2.3.2
+
+|Arduino Board
+|esp32 by Espressif
+|3.2.0
+|===
+
+=== Target
+This firmware is only designed to be ran on a E1041 PCBA.
+
+== Functional Description
+The F1044 firmware controls up to 8 7-segment displays. The displays are intended to be 4" displays.
+
+=== Modes
+This firmware has the following run-time modes:
+\begin{itemize}
+    \item \textbf{"off"}: The displays are disabled, nothing is displayed
+    \item \textbf{"numb"}: Shows a static number on the display. Useful for host updated numeric display
+    \item \textbf{"time"}: Shows the current time based off the timezone set.
+\end{itemize}
+
+=== Communication
+This firmware is communicated with over the following interfaces:
+
+* Serial over USB, 115200 baud, 8N1
+* Ethernet, telnet, port 23
+
+All command frames sent to/from the device are in ASCII text mode, with either carriage-return (\r) or line-feed (\n) ending per frame.
+
+If a command doesn't sent back a return value, an acknowlegment (ACK) may be sent back as the string "ok".
+Any non-acknowlegments (NACK) may be sent as "error: X", where X is a human description of the error.
+
+==== Ethernet, Telnet
+This firmware handles being connected over Telnet directly, allowing to connect to this firmware over the built-in `telnet` commands to many UNIX systems.
+
+The following telnet commands are handled:
+
+* DO
+* WILL
+* Interrupt Process, including waiting for timing-mark to responds with a new line and flush the internal receive buffer
+
+This firmware also implements a "exit" command to close a Telnet connection.
+
+[page-layout=landscape]
+<<<
+
+
+== Commands
+The commands are structured as verb-noun system; the verb dictates the action, and noun is what to apply the verb to. For example "get mode" requests to "get" the "mode".
+The verb and noun are space delimited. Any argument(s) to the command are also space delimited.
+
+The following table list all the commands:
+
+// [%autowidth]
+[cols="1,2,5,5,6"]
+|===
+|Verb|Noun|Arguments|Return|Desc
+
+.5+|set
+|mode
+|[str], mode
+|ACK
+|Set the new mode, which is the same string as described in <<Modes>>
+
+|n
+|The number to display to in "numb" mode
+|ACK, only if in "numb" mode
+|
+
+|timezone
+|The timezone as the TZ identifier
+|ACK
+|
+
+|brightness
+|The brightness, from 0 to 100
+|ACK
+|
+
+|time
+|Either the current time in the format "HH:MM:SS", or "auto" to automatically fetch the time from the internet
+|ACK
+|
+
+.6+|get
+| mode
+|
+|The current mode
+|
+
+|n
+|
+|The current displayed number
+|
+
+|timezone
+|
+|The timezone as a TZ identifier
+|
+
+|brightness
+|
+|The brightness level
+|
+
+|time
+|
+|The current time, in the set timezone
+|
+
+|ip
+|
+|The current IP address, or "none" if not connected to the internet
+|
+
+|exit
+|
+|
+|
+|In Telnet mode, this command sends the required Telnet commands to disconnect.
+|===
