@@ -8,6 +8,11 @@ This project is a driver for some large 4in 7-segment displays
 IMAGE COMING SOON!
 
 # Directory Structure
+- `CAD`: All FreeCAD enclosure related stuff
+    - C1045: Display Holder
+    - C1046: Driver Board Holder, spans 2 displays
+    - C1047: Single Display Backside
+    - C1048: Dowel
 - E1041: PCB, Driver board, KiCAD
 - E1042: PCB, Pin to Connector Adapter, KiCAD
 - `misc`: Miscellaneous files. Right now only the spreadsheet I used for some calculations exists

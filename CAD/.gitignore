@@ -1,0 +1,6 @@
+*.3mf
+*.stl
+*.FCBak
+
+# old uncontrolled (revision wise) stuff I was working on
+oldStuff/
