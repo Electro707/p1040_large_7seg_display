@@ -1,5 +1,5 @@
 = F1044 - Large 7-Seg Display Firmware
-rev A-dev
+rev 1-dev
 
 == Purpose
 The purpose of this document is to describe the F1044 firmware.
@@ -30,11 +30,12 @@ The F1044 firmware controls up to 8 7-segment displays. The displays are intende
 
 === Modes
 This firmware has the following run-time modes:
-\begin{itemize}
-    \item \textbf{"off"}: The displays are disabled, nothing is displayed
-    \item \textbf{"numb"}: Shows a static number on the display. Useful for host updated numeric display
-    \item \textbf{"time"}: Shows the current time based off the timezone set.
-\end{itemize}
+
+* *off* : The displays are disabled, nothing is displayed
+* *numb* : Shows a static number on the display. Useful for host updated numeric display
+* *"time"*: Shows the current time based off the timezone set.
+
+NOTE: Timezones are not implemented yet
 
 === Communication
 This firmware is communicated with over the following interfaces:
@@ -48,7 +49,7 @@ If a command doesn't sent back a return value, an acknowlegment (ACK) may be sen
 Any non-acknowlegments (NACK) may be sent as "error: X", where X is a human description of the error.
 
 ==== Ethernet, Telnet
-This firmware handles being connected over Telnet directly, allowing to connect to this firmware over the built-in `telnet` commands to many UNIX systems.
+This firmware handles being connected over Telnet directly, allowing to connect to this firmware over the built-in `telnet` command on many UNIX systems.
 
 The following telnet commands are handled:
 
@@ -73,7 +74,7 @@ The following table list all the commands:
 |===
 |Verb|Noun|Arguments|Return|Desc
 
-.5+|set
+.2+|set
 |mode
 |[str], mode
 |ACK
@@ -84,23 +85,8 @@ The following table list all the commands:
 |ACK, only if in "numb" mode
 |
 
-|timezone
-|The timezone as the TZ identifier
-|ACK
-|
-
-|brightness
-|The brightness, from 0 to 100
-|ACK
-|
-
-|time
-|Either the current time in the format "HH:MM:SS", or "auto" to automatically fetch the time from the internet
-|ACK
-|
-
-.6+|get
-| mode
+.3+|get
+|mode
 |
 |The current mode
 |
@@ -110,24 +96,9 @@ The following table list all the commands:
 |The current displayed number
 |
 
-|timezone
-|
-|The timezone as a TZ identifier
-|
-
-|brightness
-|
-|The brightness level
-|
-
-|time
-|
-|The current time, in the set timezone
-|
-
 |ip
 |
-|The current IP address, or "none" if not connected to the internet
+|The current IP address of either Ethernet or Wifi, or "none" if not connected to the internet
 |
 
 |exit
