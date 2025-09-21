@@ -3,6 +3,9 @@
 
 // comment the below define out to disable debug print through the serial port
 #define ENABLE_DEBUG
+// comment below out to enable wifi, otherwise uses ethernet
+#define CONNECT_WIFI
+#define CONNECT_ETHERNET
 
 #define FW_VERSION "F1044 Rev 1-dev2"
 #define NETWORK_HOSTNAME "esp32-f1044"
@@ -29,7 +32,7 @@
 #define IO_ETH_EN_CLK       32
 #define IO_ETH_RST          9
 
-#define MAX_FW_BUFFER   8192
+#define MAX_FW_BUFFER   8192            // enough buffer for firmware updates as well as main comms
 
 /********** Macros **********/
 
@@ -55,5 +58,13 @@ typedef enum{
 #if N_DISPLAYS >= 4 
     #define DISPLAY_MODE_TIME_EN
 #endif
+
+extern mode_e currMode;
+extern timeFormat_e timeFormat;
+extern uint currDisplayedN;
+extern NetworkClient ethClient;
+
+extern void displayNumber(int n, uint dotBitMap);
+extern void setDisplayMode(mode_e newMode);
 
 #endif
