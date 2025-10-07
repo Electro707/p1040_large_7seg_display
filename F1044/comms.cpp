@@ -4,6 +4,7 @@
 #include <ETH.h>
 #include "common.h"
 #include "comms.h"
+#include "zones.h"
 
 #define UPDATE_NOCRYPT
 #include <Update.h>
@@ -153,6 +154,10 @@ void ParserHandler::processCommand(void){
     else if (!strcmp(token, "update")) {
         subcommandUpdate(token);
     }
+    else if (!strcmp(token, "nvmSave")) {
+        nvmSave();
+        txAck();
+    }
     else if (!strcmp(token, "reboot")) {
         txAck();
         delay(1000);
@@ -192,7 +197,25 @@ void ParserHandler::subcommandSet(char *token){
         }
 
         txAck();
-    } 
+    }
+    else if(!strcmp(token, "timeFormat")){
+        MACRO_GET_NEXTARG("missing arg1");
+
+        if(!strcmp(token, "24hr")){
+            timeFormat = TIME_FORMAT_24HR;
+        }
+        else if(!strcmp(token, "12hr")){
+            timeFormat = TIME_FORMAT_12HR;
+        }
+        else if(!strcmp(token, "metric")){
+            timeFormat = TIME_FORMAT_METRIC;
+        }
+        else{
+            txNack("invalid mode");
+            return;
+        }
+        txAck();
+    }
     else if (!strcmp(token, "n")) {
         MACRO_GET_NEXTARG("missing arg1");
         // only allow in NUMB mode
@@ -212,7 +235,72 @@ void ParserHandler::subcommandSet(char *token){
             return;
         }
         displayNumber(tmpLong, 0);
-    } else {
+        txAck();
+    }
+    else if (!strcmp(token, "wifiSSID")) {
+        token = strtok(NULL, "");
+        if(token == NULL){
+            txNack("SSID not given");
+            return; \
+        }
+        if(strlen(token) > 31){
+            txNack("SSID too long, must be <31 characters");
+            return;
+        }
+        strcpy(wifiSsid, token);
+        txAck();
+        // if(WiFi.status() == WL_IDLE_STATUS){
+        //     printHandler->println("restarting wifi");
+        //     WiFi.disconnect(true);
+        //     WiFi.begin(wifiSsid, wifiPassword);
+        // }
+    }
+    else if (!strcmp(token, "wifiPass")) {
+        token = strtok(NULL, "");
+        if(token == NULL){
+            txNack("Password not given");
+            return; \
+        }
+        if(strlen(token) > 31){
+            txNack("Password too long, must be <31 characters");
+            return;
+        }
+        strcpy(wifiPassword, token);
+        txAck();
+        // if(WiFi.status() == WL_IDLE_STATUS){
+        //     printHandler->println("restarting wifi");
+        //     WiFi.disconnect(true);
+        //     WiFi.begin(wifiSsid, wifiPassword);
+        // }
+    }
+    else if (!strcmp(token, "wifiOff")) {
+        if(isWifiEnabled){
+            printHandler->println("stopping wifi");
+            WiFi.disconnect(true);
+        }else{
+            printHandler->println("wifi already off");
+        }
+    }
+    else if (!strcmp(token, "wifiOn")) {
+        if(!isWifiEnabled){
+            printHandler->println("starting wifi");
+            WiFi.begin(wifiSsid, wifiPassword);
+        }else{
+            printHandler->println("wifi already on");
+        }
+    }
+    else if(!strcmp(token, "timeZone")){
+        MACRO_GET_NEXTARG("missing arg1");
+        const char *zone = micro_tz_db_get_posix_str(token);
+        if(zone == NULL){
+            txNack("Invalid zone");
+            return;
+        }
+        setenv("TZ", zone, 1);
+        tzset();
+        txAck();
+    }
+    else {
         txNack("invalid sub-command");
     }
 }
@@ -245,6 +333,22 @@ void ParserHandler::subcommandGet(char *token){
                 break;
         }
     }
+    else if(!strcmp(token, "timeFormat")){
+        switch(timeFormat){
+            case TIME_FORMAT_24HR:
+                printHandler->println("24hr");
+                break;
+            case TIME_FORMAT_12HR:
+                printHandler->println("12hr");
+                break;
+            case TIME_FORMAT_METRIC:
+                printHandler->println("metric");
+                break;
+            default:
+                printHandler->println("Mode not defined");
+                break;
+        }
+    }
     else if(!strcmp(token, "n")){
         printHandler->println(currDisplayedN);
     }
@@ -264,6 +368,21 @@ void ParserHandler::subcommandGet(char *token){
             printHandler->println("none");
         }
     }
+    else if(!strcmp(token, "wifiInfo")){
+        printHandler->print("SSID: ");
+        printHandler->println(wifiSsid);
+        printHandler->print("Password: ");
+        printHandler->println(wifiPassword);
+    }
+    else if(!strcmp(token, "allTimeZones")){
+        for(int i=0;i<N_TIME_ZONES;i++){
+            printHandler->println(micro_tz_db_tzs[i].name);
+        }
+        printHandler->println("---");
+    }
+    // else if(!strcmp(token, "timeZone")){
+    //     txNack("TODO: THIS");
+    // }
     else{
         txNack("invalid sub-command");
     }

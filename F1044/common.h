@@ -34,6 +34,8 @@
 
 #define MAX_FW_BUFFER   8192            // enough buffer for firmware updates as well as main comms
 
+#define NVM_MAGIC       0x5A
+
 /********** Macros **********/
 
 #ifndef ENABLE_DEBUG
@@ -63,8 +65,12 @@ extern mode_e currMode;
 extern timeFormat_e timeFormat;
 extern uint currDisplayedN;
 extern NetworkClient ethClient;
+extern char wifiSsid[32];
+extern char wifiPassword[32];
+extern bool isWifiEnabled;
 
 extern void displayNumber(int n, uint dotBitMap);
 extern void setDisplayMode(mode_e newMode);
+extern void nvmSave(void);
 
 #endif

@@ -11,12 +11,18 @@
 #include <WiFiClient.h>
 #include <ETH.h>
 #include <WiFi.h>
+#include <EEPROM.h>
+
 #include "common.h"
 #include "comms.h"
 #include "wifiDefault.h"
+#include "micro_tz_d/zones.h"
 
 #define UPDATE_NOCRYPT
 #include <Update.h>
+
+char wifiSsid[32];
+char wifiPassword[32];
 
 const char* ntpServer = "pool.ntp.org";
 const long gmtOffset_sec = -5 * 3600;  // Set your timezone offset (e.g., -5*3600 for EST)
@@ -27,6 +33,8 @@ static const int spiClk = 1000000;
 SPIClass vspi = SPIClass(VSPI);
 
 hw_timer_t* mainTimer = timerBegin(1000000);
+
+EEPROMClass nvm("main");
 
 static bool eth_connected = false;
 
@@ -42,6 +50,8 @@ timeFormat_e timeFormat;
 
 TimerHandle_t updateTimeT;
 
+bool isWifiEnabled = false;
+
 NetworkClient ethClient;  // for now only allow one client
 
 // parser struct for our custom parser
@@ -54,7 +64,6 @@ void setup(void) {
 
 	digitalWrite(IO_SHIFT_OE_L, HIGH);
 	digitalWrite(IO_SHIFT_OE_H, HIGH);
-	// digitalWrite(IO_ETH_RST, LOW);
 
 	pinMode(IO_SHIFT_OE_L, OUTPUT);
 	pinMode(IO_SHIFT_OE_H, OUTPUT);
@@ -64,27 +73,29 @@ void setup(void) {
 	pinMode(IO_SHIFT_DAT, OUTPUT);
 	pinMode(IO_ETH_EN_CLK, OUTPUT);
 	pinMode(IO_ETH_RST, OUTPUT);
+	pinMode(IO_DEBUG_LED, OUTPUT);
 
+	// todo: for some reason digitalWrite before pinMode doesn't set the IO state. Look into
 	digitalWrite(IO_SHIFT_OE_L, HIGH);
 	digitalWrite(IO_SHIFT_OE_H, HIGH);
 	digitalWrite(IO_ETH_RST, LOW);
-
-	pinMode(IO_DEBUG_LED, OUTPUT);
 
 	vspi.begin(IO_SHIFT_CLK, -1, IO_SHIFT_DAT, -1);
 	vspi.setHwCs(false);
 	vspi.beginTransaction(SPISettings(spiClk, MSBFIRST, SPI_MODE0));
 
-	// test the LED segment by putting on one on
-
+	// reset LED segments on bootup
 	digitalWrite(IO_SHIFT_RST, HIGH);
 	digitalWrite(IO_SHIFT_LDR, LOW);
 	vspi.transfer(0x00);
 	vspi.transfer(0x00);
 	digitalWrite(IO_SHIFT_LDR, HIGH);
-
 	digitalWrite(IO_SHIFT_OE_L, LOW);
 	digitalWrite(IO_SHIFT_OE_H, LOW);
+
+	// startup NVM read
+	nvmInit();
+	nvmLoad();
 
 	updateTimeT = xTimerCreate("updateTimeT", pdMS_TO_TICKS(500), true, NULL, updateTimeCallback);
 
@@ -116,7 +127,7 @@ void setup(void) {
 	ETH.begin(ETH_PHY_TYPE, ETH_PHY_ADDR, ETH_PHY_MDC, ETH_PHY_MDIO, ETH_PHY_POWER, ETH_CLK_MODE);
 #endif
 #ifdef CONNECT_WIFI
-	WiFi.begin(DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASSWORD);
+	WiFi.begin(wifiSsid, wifiPassword);
 #endif
 
 	serialParser.setPrintClass(&Serial);
@@ -206,18 +217,25 @@ void onNetworkEvent(arduino_event_id_t event) {
             // restart WiFi back up
 #ifdef CONNECT_WIFI
             DEBUG("Restarting WIFI");
-            WiFi.begin(DEFAULT_WIFI_SSID, DEFAULT_WIFI_PASSWORD);
+            WiFi.begin(wifiSsid, wifiPassword);
 #endif
 			break;
 		case ARDUINO_EVENT_ETH_STOP:
 			DEBUG("ETH Stopped");
 			eth_connected = false;
 			break;
-
+		
+		case ARDUINO_EVENT_WIFI_OFF:				 DEBUG("Wifi is set to off"); break;
 		case ARDUINO_EVENT_WIFI_READY:               DEBUG("WiFi interface ready"); break;
 		case ARDUINO_EVENT_WIFI_SCAN_DONE:           DEBUG("Completed scan for access points"); break;
-		case ARDUINO_EVENT_WIFI_STA_START:           DEBUG("WiFi client started"); break;
-		case ARDUINO_EVENT_WIFI_STA_STOP:            DEBUG("WiFi clients stopped"); break;
+		case ARDUINO_EVENT_WIFI_STA_START:
+			DEBUG("WiFi client started");
+			isWifiEnabled = true;
+			break;
+		case ARDUINO_EVENT_WIFI_STA_STOP:
+			DEBUG("WiFi client stopped");
+			isWifiEnabled = false;
+			break;
 		case ARDUINO_EVENT_WIFI_STA_CONNECTED:
             DEBUG("Connected to WiFi access point");
             break;
@@ -248,10 +266,38 @@ void onNetworkEvent(arduino_event_id_t event) {
 		case ARDUINO_EVENT_WIFI_AP_PROBEREQRECVED:  DEBUG("Received probe request"); break;
 		case ARDUINO_EVENT_WIFI_AP_GOT_IP6:         DEBUG("AP IPv6 is preferred"); break;
 		case ARDUINO_EVENT_WIFI_STA_GOT_IP6:        DEBUG("STA IPv6 is preferred"); break;
-		default:                                    DEBUG("Other eth event: %d", event); break;
+		default:                                    DEBUG("Other eth/wifi event: %d", event); break;
 	}
 
 	digitalWrite(IO_DEBUG_LED, eth_connected);
+}
+
+void nvmSave(void){
+    nvm.writeByte(0, NVM_MAGIC);
+    nvm.writeBytes(1, wifiSsid, 32);
+    nvm.writeBytes(1+32, wifiPassword, 32);
+    nvm.commit();
+}
+
+void nvmLoad(void){
+    // we have an empty nvm, initialize
+	if(nvm.read(0) != NVM_MAGIC){
+		strcpy(wifiSsid, DEFAULT_WIFI_SSID);
+		strcpy(wifiPassword, DEFAULT_WIFI_PASSWORD);
+		return;
+	}
+	nvm.readBytes(1, wifiSsid, 32);
+	nvm.readBytes(1+32, wifiPassword, 32);
+}
+
+void nvmInit(){
+	if (!nvm.begin(0x200)) {
+		// todo: this came from their example. is restarting the best?
+		DEBUG("Failed to initialize nvm");
+		DEBUG("Restarting...");
+		delay(1000);
+		ESP.restart();
+	}
 }
 
 void updateTimeCallback(TimerHandle_t xTimer) {

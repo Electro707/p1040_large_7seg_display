@@ -27,3 +27,5 @@ Known issues, and any work-arounds, are documented in [ERRATA.md](ERRATA.md)
 This project is licensed under [GPLv3](LICENSE.md)**
 
 ** This excludes the files in `E1041 - PCB, Driver Board/ExternalStep`, as they came from the manufacturer.
+** Also excludes the files `zones.c` and `zones.h` in `F1044`, as those are modified from the [micro_tz_d library](https://github.com/jdlambert/micro_tz_db/tree/master) which is under an MIT
+license

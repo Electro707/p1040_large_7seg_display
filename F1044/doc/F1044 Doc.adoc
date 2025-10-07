@@ -23,19 +23,54 @@ The following tools and libraries are used to build this library:
 |===
 
 === Target
-This firmware is only designed to be ran on a E1041 PCBA.
+This firmware is only designed to be ran on an ESP32-Pico-D4 on an E1041 PCBA.
 
 == Functional Description
-The F1044 firmware controls up to 8 7-segment displays. The displays are intended to be 4" displays.
+The F1044 firmware controls up to 4 7-segment displays. The displays are intended to be 4" displays.
+
+NOTE: While the firmware can handle up to 8 displays as per hardware, it has not been tested yet!
 
 === Modes
 This firmware has the following run-time modes:
 
 * *off* : The displays are disabled, nothing is displayed
 * *numb* : Shows a static number on the display. Useful for host updated numeric display
-* *"time"*: Shows the current time based off the timezone set.
+* *time*: Shows the current time based off the timezone set.
 
-NOTE: Timezones are not implemented yet
+The default timezone is EDT (mine!), but can be changed with the `set timeZone` command
+
+=== Time Format
+
+When displaying time, this firmware can present that in the following modes:
+
+* *24hr*: Displays the time as HH:MM in 24-hour format
+* *12hr*: Displays the time as HH:MM in 12-hour format. No AM/PM indicator can be shown in this mode
+* *metric*: Displays the time as HH:MM in metric format. See https://metric-time.com/ for more information on this format
+
+=== NVM
+This firmware stores some parameters in non-volatile memory (nvm). The esp32-arduino's `EEPROM` is used, handling data storage and integrity.
+The following table describes what is stored.
+
+[%autowidth]
+|===
+|Offset|Length|Type|Description
+
+|0
+|1
+|byte
+|NVM magic to check if something is written. Should be 0x5A
+
+|1
+|32
+|str
+|WIFI SSID to connect to
+
+|33
+|32
+|str
+|WIFI password to connect to
+
+|===
 
 === Communication
 This firmware is communicated with over the following interfaces:
@@ -74,7 +109,13 @@ The following table list all the commands:
 |===
 |Verb|Noun|Arguments|Return|Desc
 
-.2+|set
+|ping
+|
+|
+|pong!
+|ping-pong!
+
+.8+|set
 |mode
 |[str], mode
 |ACK
@@ -85,7 +126,46 @@ The following table list all the commands:
 |ACK, only if in "numb" mode
 |
 
-.3+|get
+|timeFormat
+a|[str], The new time format, either:
+
+- '24hr'
+- '12hr'
+- 'metric'
+|
+|Sets the displayed time format, which is the same string as described in <<Time Format>>
+
+|wifiSSID
+|SSID
+|
+|Sets the WiFi SSID
+
+|wifiPass
+|password
+|
+|Sets the WiFi password
+
+|wifiOff
+|
+|
+|Turns wifi on if disabled and not running
+
+|wifiOn
+|password
+|
+|Turns wifi off if enabled and running
+
+|timeZone
+|The timezone as a TZ string. Use the command "get allTimeZones" to get valid timezones
+|
+|
+
+.7+|get
+|version
+|
+|The firmware version
+|
+
 |mode
 |
 |The current mode
@@ -96,14 +176,63 @@ The following table list all the commands:
 |The current displayed number
 |
 
+|timeFormat
+|
+|The time format
+|See <<Time Format>>
+
 |ip
 |
 |The current IP address of either Ethernet or Wifi, or "none" if not connected to the internet
 |
+
+|wifiInfo
+|
+|The current WiFi SSID and Password set
+|
+
+|allTimeZones
+|
+|All valid time zones
+|
+
+.4+|update
+|begin
+|The firmware size in bytes
+|
+|Starts a firmware update
+
+|cont
+|The number of bytes to send, then the raw bytes after reception of the first ACK
+|ACK, followed by another ACK after raw bytes received
+|When this command is received with the number of bytes to send, an ACK is sent. The firmware then expects
+ that many bytes (not ASCII) to be received, in which another ACK will be sent after all expected bytes are received
+
+|end
+|
+|
+|Finishes the firmware update process
+
+|cancel
+|
+|
+|Cancels any on-going firmware update process
+
+|saveNvm
+|
+|
+|
+|Saves the current NVM configuration
 
 |exit
 |
 |
 |
 |In Telnet mode, this command sends the required Telnet commands to disconnect.
+
+|reboot
+|
+|
+|
+|Reboots the microcontroller
 |===
