@@ -12,7 +12,7 @@ For X1, have the pull-up resistor only soldered to the left pad (looking at the 
 ![fix](.img/2020_0809_144940_027.JPG)
 
 ## Errata 2: 50Mhz clock going to programming line
-This issue is caused by GPIO0, which is both one of the programming lines and the 50Mhz Ethernet clock, beign broken out to the programming header, which can cause signal integrity issue
+This issue is caused by GPIO0, which is both one of the programming lines and the 50Mhz Ethernet clock, being broken out to the programming header, which can cause signal integrity issue
 
 ### Fix
 Either or both:

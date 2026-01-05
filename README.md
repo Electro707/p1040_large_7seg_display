@@ -21,7 +21,10 @@ IMAGE COMING SOON!
 - `release`: Latest exported build files, includes Schematic, BOM, Gerber, and STL files
 
 # Known Issues
-Known issues, and any work-arounds, are documented in [ERRATA.md](ERRATA.md)
+> [!IMPORTANT]
+> Please read the file linked below before attempting to build this hardware.
+
+Known issues, and any workarounds, are documented in [ERRATA.md](ERRATA.md)
 
 # License
 This project is licensed under [GPLv3](LICENSE.md)**
