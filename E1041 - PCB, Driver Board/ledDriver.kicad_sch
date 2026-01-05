@@ -2347,6 +2347,28 @@
 		)
 		(uuid "b891ff98-63f6-4dd1-aed7-8e30030a2676")
 	)
+	(text_box "Unless otherwise noted:\n- All resistors are 1%, 1/10W \n- All capacitors are 16v, 20%, X5R\nor better"
+		(exclude_from_sim yes)
+		(at 134 185 0)
+		(size 50.99 12.97)
+		(margins 1.125 1.125 1.125 1.125)
+		(stroke
+			(width 0)
+			(type solid)
+			(color 132 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(color 132 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "f5fa41ea-2d42-4d4a-a70f-745eb31e9274")
+	)
 	(junction
 		(at 69.85 78.74)
 		(diameter 0)
@@ -5461,6 +5483,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 121.92 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a680539b-c2a7-47d9-8015-e34732c2f728")
 		)
@@ -5661,6 +5692,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 208.28 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c53d1ce9-e38b-4b64-bb97-75ff45b587fb")
 		)
@@ -5732,6 +5772,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 246.38 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 246.38 49.53 0)
 			(effects
 				(font
@@ -5816,6 +5865,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 127 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0cac7d95-dfde-406f-8e2c-abb8b73391a0")
 		)
@@ -5878,6 +5936,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 208.28 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 208.28 146.05 0)
 			(effects
 				(font
@@ -6030,6 +6097,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 246.38 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "80222c69-5193-4f70-aafd-837f01d5ed0a")
 		)
@@ -6100,6 +6176,15 @@
 			)
 		)
 		(property "Description" "8-bit serial in/out Shift Register 3-State Outputs"
+			(at 82.55 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "74HC595"
 			(at 82.55 132.08 0)
 			(effects
 				(font
@@ -6210,6 +6295,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 82.55 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "STP08DP05"
 			(at 82.55 87.63 0)
 			(effects
 				(font
@@ -6330,6 +6424,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 208.28 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bd6c13cb-3055-4f06-8ddb-40893aec3360")
 		)
@@ -6409,6 +6512,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 208.28 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c75f512d-9ab7-4c91-ab89-3e12481cbf80")
 		)
@@ -6479,6 +6591,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 50.8 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 50.8 130.81 0)
 			(effects
 				(font
@@ -6613,6 +6734,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 129.54 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 129.54 106.68 0)
 			(effects
 				(font
@@ -6821,6 +6951,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 246.38 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a89ec409-c709-4368-8bdb-37a274046db8")
 		)
@@ -6892,6 +7031,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 208.28 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 208.28 125.73 0)
 			(effects
 				(font
@@ -6979,6 +7127,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 208.28 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "85d55c49-91ac-47e0-a163-566710f9b42f")
 		)
@@ -7050,6 +7207,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 246.38 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 246.38 87.63 0)
 			(effects
 				(font
@@ -7137,6 +7303,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 246.38 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4b30b328-a444-46d7-a288-e4994ea7d483")
 		)
@@ -7213,6 +7388,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 129.54 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "410858a7-a307-49bb-9021-93c8a7edaf32")
 		)
@@ -7275,6 +7459,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 208.28 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 208.28 33.02 0)
 			(effects
 				(font
@@ -7359,6 +7552,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 134.62 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "63ecaa9c-4449-44cd-8835-15e652dbba5e")
 		)
@@ -7419,6 +7621,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 128.27 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 128.27 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7523,7 +7734,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "1k"
 			(at 66.04 96.52 90)
 			(effects
 				(font
@@ -7551,6 +7762,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 66.04 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 66.04 96.52 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7690,6 +7910,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "772b75fc-0d15-436f-9328-97092a805a70")
 		)
@@ -7822,6 +8051,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 154.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c0476c27-1004-46f8-99f8-7ce1046cb4f3")
 		)
@@ -7884,6 +8122,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 246.38 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 246.38 33.02 0)
 			(effects
 				(font
@@ -7971,6 +8218,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 246.38 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "18058c2f-a850-4377-8994-c7e7fa5e420f")
 		)
@@ -8047,6 +8303,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 128.27 132.08 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ed117ba4-c8f6-45d8-82b0-2856b9e98c4f")
 		)
@@ -8109,6 +8374,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x05, script generated"
+			(at 208.28 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "B5B-PH-K-S"
 			(at 208.28 87.63 0)
 			(effects
 				(font
@@ -8196,6 +8470,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "B5B-PH-K-S"
+			(at 246.38 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7daf6e91-15f4-4b3c-b757-2e97f891d76b")
 		)
@@ -8267,6 +8550,15 @@
 			)
 		)
 		(property "Description" "8-Channel Source Type Transistor Array, TTL and CMOS compatible, 500mA, 50V, DIP-18/SOP-18/SSOP-18/SOIC-18W"
+			(at 109.22 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "TBD62783A"
 			(at 109.22 129.54 0)
 			(effects
 				(font
@@ -8449,6 +8741,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 50.8 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 50.8 87.63 0)
 			(effects
 				(font

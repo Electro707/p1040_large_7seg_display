@@ -9844,6 +9844,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "1751248"
+			(at 34.29 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d3b608ae-2109-4fe3-b7b7-3a316d20f447")
 		)
@@ -10042,6 +10051,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "0ZCJ0050FF2G"
+			(at 57.15 27.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bb856087-819d-484b-808e-4d409d90d638")
 		)
@@ -10176,6 +10194,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 60.96 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cba5926e-80e8-44c6-b7fe-cfd5c6a201ed")
 		)
@@ -10237,6 +10264,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 144.78 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 144.78 39.37 0)
 			(effects
 				(font
@@ -10308,6 +10344,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 25.4 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 25.4 132.08 0)
 			(effects
 				(font
@@ -10397,6 +10442,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 138.43 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "4c0cbec0-c89e-480a-a15d-df4f9624985b")
 		)
@@ -10456,6 +10510,15 @@
 			)
 		)
 		(property "Description" "Schottky diode"
+			(at 124.46 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "MBR0530"
 			(at 124.46 27.94 0)
 			(effects
 				(font
@@ -10525,6 +10588,15 @@
 		)
 		(property "Description" ""
 			(at 200.66 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 200.66 74.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10660,6 +10732,15 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 25.4 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 25.4 104.14 0)
 			(effects
 				(font
@@ -10805,6 +10886,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 139.7 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "35e66b60-6fc2-48ea-abf9-1b62166ff152")
 		)
@@ -10865,6 +10955,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 243.84 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 243.84 160.02 0)
 			(effects
 				(font
@@ -10934,6 +11033,15 @@
 		)
 		(property "Description" "Inductor"
 			(at 106.68 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "1239AS-H-6R8M=P2"
+			(at 106.68 58.42 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11075,6 +11183,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 130.81 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0c482ea6-4516-46c8-8061-5055b511850b")
 		)
@@ -11137,6 +11254,15 @@
 			)
 		)
 		(property "Description" "Mounting Hole with connection"
+			(at 208.28 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 208.28 156.21 0)
 			(effects
 				(font
@@ -11269,6 +11395,15 @@
 		)
 		(property "Description" ""
 			(at 176.53 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 176.53 30.48 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11412,6 +11547,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "SMF15A"
+			(at 63.5 33.02 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "7bcf53d0-0ae5-44fa-9153-d8a863fe7269")
 		)
@@ -11547,6 +11691,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 250.19 119.38 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "8a8e3c73-1a99-44c6-9de3-62f26d97d291")
 		)
@@ -11615,6 +11768,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "MBR0530"
+			(at 120.65 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "baa22e53-8a08-4378-baae-0a3143bea1ca")
 		)
@@ -11675,6 +11837,15 @@
 		)
 		(property "Description" ""
 			(at 85.09 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 85.09 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11751,6 +11922,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 50.8 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "70b80568-29f6-421e-987a-35e78c26fd2a")
 		)
@@ -11812,6 +11992,15 @@
 			)
 		)
 		(property "Description" "Synchronous Boost Regulator, Adjustable Output up to 28V, 400 mA Switch Current Limit, SOT-23-5"
+			(at 106.68 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "TPS61040DBV"
 			(at 106.68 69.85 0)
 			(effects
 				(font
@@ -11964,6 +12153,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "2450AT43F0100001E"
+			(at 166.37 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "a9c4feb7-7c32-40fc-bc8d-f42c40a1ee56")
 		)
@@ -12033,6 +12231,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 161.29 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9187d968-3681-4d6c-86a2-b42764d4b459")
 		)
@@ -12094,6 +12301,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 210.82 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 210.82 39.37 0)
 			(effects
 				(font
@@ -12229,6 +12445,15 @@
 			)
 		)
 		(property "Description" "USB serial converter, 2Mbps, UART, SOP-8"
+			(at 181.61 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "CH340N"
 			(at 181.61 74.93 0)
 			(effects
 				(font
@@ -12387,6 +12612,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 29.21 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "f931fc2a-1014-45b5-9886-201352624622")
 		)
@@ -12447,6 +12681,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 243.84 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 243.84 165.1 0)
 			(effects
 				(font
@@ -12522,6 +12765,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "MAMK2520T3R3M"
+			(at 189.23 27.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d1cf9aed-1595-4197-be97-6f86561ee661")
 		)
@@ -12590,6 +12842,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 58.42 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5b116982-31d4-4546-bb61-ab83e32894b2")
 		)
@@ -12650,6 +12911,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 63.5 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 63.5 81.28 0)
 			(effects
 				(font
@@ -12793,6 +13063,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 218.44 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
 			(project "E1041"
 				(path "/9e062f84-4a12-4914-95e6-89db46621d41"
@@ -12848,6 +13127,15 @@
 		)
 		(property "Description" ""
 			(at 105.41 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 105.41 101.6 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12989,6 +13277,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 247.65 119.38 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d7ffe80d-0a49-48c5-ad3c-a7bd8da44861")
 		)
@@ -13051,6 +13348,15 @@
 		)
 		(property "Description" ""
 			(at 255.27 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 255.27 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13256,6 +13562,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 254 165.1 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b7b77871-8306-4850-9863-5cb1ba72aa80")
 		)
@@ -13318,6 +13633,15 @@
 		)
 		(property "Description" ""
 			(at 38.1 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 38.1 129.54 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13460,6 +13784,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 168.91 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "fb223e51-8199-4401-83bf-dd41012f67fe")
 		)
@@ -13527,6 +13860,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 189.23 33.02 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "62274655-471b-49c8-b899-249fea62b551")
 		)
@@ -13550,10 +13892,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "93e77ea4-40cf-448a-9f3f-3dbaf38c4035")
 		(property "Reference" "J6"
-			(at 33.02 38.1 0)
+			(at 24.13 41.402 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13566,6 +13907,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
@@ -13587,6 +13929,15 @@
 			)
 		)
 		(property "Description" "USB 2.0-only 14P Type-C Receptacle connector"
+			(at 33.02 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "USB4105-GF-A"
 			(at 33.02 60.96 0)
 			(effects
 				(font
@@ -13703,6 +14054,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "33607fd6-a6fc-4ff4-85b9-000316c92331")
 		)
@@ -13770,6 +14130,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 92.71 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "900499ac-0554-4f53-8ff1-867be363b30d")
 		)
@@ -13829,6 +14198,15 @@
 			)
 		)
 		(property "Description" "Schottky diode"
+			(at 87.63 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "MBR0530"
 			(at 87.63 27.94 0)
 			(effects
 				(font
@@ -13974,6 +14352,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "MMBT3904"
+			(at 93.98 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ef00570b-29d6-4ac7-bef0-8585cd69b6aa")
 		)
@@ -14009,8 +14396,8 @@
 				)
 			)
 		)
-		(property "Value" "ECS-2520MV-xxx-xx"
-			(at 193.04 138.43 0)
+		(property "Value" "ECS-2520MV-250-CN-TR"
+			(at 221.234 138.938 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14036,6 +14423,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 207.01 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "ECS-2520MV-250-CN-TR"
 			(at 207.01 132.08 0)
 			(effects
 				(font
@@ -14445,6 +14841,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 72.39 71.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "41553278-b7a8-4c50-ba1d-22f5a96c7c04")
 		)
@@ -14578,6 +14983,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 115.57 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "93502f68-ec6d-4169-bad5-6ef77ed3c015")
 		)
@@ -14647,6 +15061,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 142.24 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d54df5dc-b8a2-463d-979f-b4ac72af8ba9")
 		)
@@ -14707,6 +15130,15 @@
 		)
 		(property "Description" "Schottky diode"
 			(at 132.08 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "MBR0530"
+			(at 132.08 24.13 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14978,6 +15410,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 55.88 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "00093f7c-ddbc-4b5f-bc6e-c313157e3834")
 		)
@@ -15037,6 +15478,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 91.44 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "ESP32-PICO-D4"
 			(at 91.44 144.78 0)
 			(effects
 				(font
@@ -15256,6 +15706,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 203.2 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ffd8ccbb-c0e6-46fe-acb0-bb8875adb509")
 		)
@@ -15316,6 +15775,15 @@
 		)
 		(property "Description" ""
 			(at 252.73 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 252.73 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15384,6 +15852,15 @@
 		)
 		(property "Description" ""
 			(at 58.42 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "0ZCJ0050FF2G"
+			(at 58.42 45.72 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15525,6 +16002,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 198.12 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "928aa4bb-3078-4bd6-8012-b4eba9731fdd")
 		)
@@ -15587,6 +16073,15 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 213.36 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 213.36 154.94 0)
 			(effects
 				(font
@@ -15714,6 +16209,15 @@
 		)
 		(property "Description" ""
 			(at 148.59 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "L-14C2N2SV4T"
+			(at 148.59 109.22 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15854,6 +16358,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "AP62200WU-7\r"
+			(at 161.29 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cda4633f-b811-4f99-bbe0-05f2cde6fe2e")
 		)
@@ -15927,6 +16440,15 @@
 		)
 		(property "Description" ""
 			(at 200.66 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 200.66 72.39 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16067,6 +16589,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 68.58 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "47a50d9c-1324-46c2-bc69-193e40f545fe")
 		)
@@ -16199,6 +16730,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 173.99 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e31f4a5e-5895-46d7-9e89-ab5bf14cae6f")
 		)
@@ -16259,6 +16799,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 31.75 20.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "PJ-202A"
 			(at 31.75 20.32 0)
 			(effects
 				(font
@@ -16328,6 +16877,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 127 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 127 64.77 0)
 			(effects
 				(font
@@ -16470,6 +17028,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 154.94 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0f647255-3e1c-4936-865b-84ba31fcf99f")
 		)
@@ -16603,6 +17170,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 254 160.02 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "df708325-3e7d-4513-98c9-9f5cc5101396")
 		)
@@ -16664,6 +17240,15 @@
 		)
 		(property "Description" ""
 			(at 69.85 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "BLM21AG102SN1D"
+			(at 69.85 27.94 90)
 			(effects
 				(font
 					(size 1.27 1.27)

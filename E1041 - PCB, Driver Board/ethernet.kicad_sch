@@ -5537,6 +5537,28 @@
 		)
 		(uuid "0872a224-c7e9-44aa-9a9d-698fc93f8ed5")
 	)
+	(text_box "Unless otherwise noted:\n- All resistors are 1%, 1/10W \n- All capacitors are 16v, 20%, X5R\nor better"
+		(exclude_from_sim yes)
+		(at 134 185 0)
+		(size 50.99 12.97)
+		(margins 1.125 1.125 1.125 1.125)
+		(stroke
+			(width 0)
+			(type solid)
+			(color 132 0 0 1)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.5 1.5)
+				(color 132 0 0 1)
+			)
+			(justify left top)
+		)
+		(uuid "79a74ba5-f576-4372-8a3f-643ab74c2b38")
+	)
 	(text_box "All caps MUST be rated for >100v"
 		(exclude_from_sim no)
 		(at 191.77 120.65 0)
@@ -8249,6 +8271,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 119.38 133.35 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "17873cbf-6130-45a2-9de3-e43d09ff09c2")
 		)
@@ -8309,6 +8340,15 @@
 		)
 		(property "Description" ""
 			(at 186.69 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 186.69 152.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8451,6 +8491,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 156.21 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5c6594fb-92b9-422e-b5a8-11ea6012b790")
 		)
@@ -8528,6 +8577,15 @@
 				)
 			)
 		)
+		(property "Part Number" ""
+			(at 246.38 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cd4f9fee-83dd-49af-97ea-59d93c6f7754")
 		)
@@ -8588,6 +8646,15 @@
 		)
 		(property "Description" ""
 			(at 129.54 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 129.54 138.43 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8792,6 +8859,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 59.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "04155eb1-b091-42e9-8712-f718a73460ec")
 		)
@@ -8852,6 +8928,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 204.47 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 204.47 54.61 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8928,6 +9013,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 101.6 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0493f4ad-722b-4367-9312-22bcfcbd035c")
 		)
@@ -8954,7 +9048,7 @@
 		(dnp no)
 		(uuid "254f77ed-a851-4014-a2ca-a775b6869b90")
 		(property "Reference" "R21"
-			(at 114.3 41.91 0)
+			(at 113.284 52.324 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8989,6 +9083,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 114.3 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 114.3 45.72 0)
 			(effects
 				(font
@@ -9064,6 +9167,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 129.54 151.13 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "3368d1f6-9de0-4e51-b525-63c93842780e")
 		)
@@ -9125,6 +9237,15 @@
 		)
 		(property "Description" ""
 			(at 67.31 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 67.31 40.64 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9264,6 +9385,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 129.54 148.59 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e07aa8c7-3a2a-4302-9ecd-305cb449ab7b")
 		)
@@ -9290,7 +9420,7 @@
 		(dnp no)
 		(uuid "3bb12bfa-5a8f-4896-8712-a6bb8773a1d6")
 		(property "Reference" "R18"
-			(at 102.87 41.91 0)
+			(at 101.854 52.324 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9325,6 +9455,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 102.87 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 102.87 45.72 0)
 			(effects
 				(font
@@ -9409,6 +9548,16 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 153.67 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 		(pin "1"
@@ -9480,6 +9629,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "SMAJ58A"
+			(at 96.52 132.08 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "83e043fa-72a5-4791-b820-1e119b4c9038")
 		)
@@ -9522,6 +9680,7 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
@@ -9543,6 +9702,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 176.53 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "BLM21AG102SN1D"
 			(at 176.53 27.94 0)
 			(effects
 				(font
@@ -9684,6 +9852,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 129.54 140.97 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "eb985af9-7489-454c-9663-d027a1f63cfd")
 		)
@@ -9817,6 +9994,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 64.77 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cfb9b6be-1812-499b-8e56-f16823601cbe")
 		)
@@ -9881,6 +10067,15 @@
 		)
 		(property "Description" ""
 			(at 114.3 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 114.3 143.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10031,6 +10226,15 @@
 				)
 			)
 		)
+		(property "Part Number" ""
+			(at 87.63 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "69f9b564-76c0-45cf-a052-6bf4d3fdd86b")
 		)
@@ -10092,6 +10296,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 204.47 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 204.47 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
 			(at 204.47 140.97 0)
 			(effects
 				(font
@@ -10233,6 +10455,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 57.15 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "db6c2804-a5ee-4d70-ba42-a9dc2dadefe6")
 		)
@@ -10302,6 +10533,24 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 199.39 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
+			(at 199.39 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d0050722-6a69-4705-93d5-23d0c0b155b7")
 		)
@@ -10362,6 +10611,15 @@
 		)
 		(property "Description" ""
 			(at 129.54 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 129.54 133.35 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10439,6 +10697,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 135.89 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ce5be548-0dc1-490b-9893-a732700fc239")
 		)
@@ -10501,6 +10768,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 142.24 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 142.24 40.64 0)
 			(effects
 				(font
@@ -10586,6 +10862,15 @@
 				)
 			)
 		)
+		(property "Part Number" ""
+			(at 252.73 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2ed9523a-e359-4308-a3a7-1c5211e3ce25")
 		)
@@ -10653,6 +10938,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 69.85 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "2a74d66b-1999-4bb9-8ef2-9cb1ed98c541")
 		)
@@ -10712,6 +11006,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 67.31 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "CDBHM220L"
 			(at 67.31 144.78 0)
 			(effects
 				(font
@@ -10819,7 +11122,7 @@
 		(dnp no)
 		(uuid "a9d3aeda-2867-473c-9a30-e6b14cd5e0ea")
 		(property "Reference" "R19"
-			(at 106.68 41.91 0)
+			(at 105.664 52.324 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10862,6 +11165,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 106.68 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d80df171-ba2a-4b12-89a1-90989d647996")
 		)
@@ -10888,7 +11200,7 @@
 		(dnp no)
 		(uuid "acb53092-285e-43a0-96c0-095eafdf915f")
 		(property "Reference" "R20"
-			(at 110.49 41.91 0)
+			(at 109.474 52.324 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10923,6 +11235,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 110.49 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
 			(at 110.49 45.72 0)
 			(effects
 				(font
@@ -10995,6 +11316,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 176.53 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "LAN8720A\r"
 			(at 176.53 69.85 0)
 			(effects
 				(font
@@ -11105,7 +11435,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "100uF"
+		(property "Value" "10uF"
 			(at 193.04 143.51 0)
 			(effects
 				(font
@@ -11133,6 +11463,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 193.04 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "865060845002"
+			(at 193.04 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Voltage" "100V"
 			(at 193.04 140.97 0)
 			(effects
 				(font
@@ -11205,6 +11553,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 82.55 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "74984104400"
 			(at 82.55 69.85 0)
 			(effects
 				(font
@@ -11309,6 +11666,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 148.59 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "TPS2372"
 			(at 148.59 140.97 0)
 			(effects
 				(font
@@ -11508,6 +11874,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "VCB4812SO-3WR3"
+			(at 226.06 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "8"
 			(uuid "040e9166-1f5f-4c0f-9b0d-2e854968c1f6")
 		)
@@ -11590,6 +11965,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 204.47 67.31 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cfd66cb3-bddb-41ce-adca-b8161c1339ee")
 		)
@@ -11631,6 +12015,7 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
@@ -11652,6 +12037,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 114.3 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" "BLM21AG102SN1D"
 			(at 114.3 35.56 0)
 			(effects
 				(font
@@ -11727,6 +12121,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 165.1 143.51 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "26a92d0d-5a0d-4651-b138-d29cf5ad1deb")
 		)
@@ -11787,6 +12190,15 @@
 		)
 		(property "Description" ""
 			(at 129.54 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 129.54 146.05 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11994,6 +12406,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" "CDBHM220L"
+			(at 67.31 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "080ea1bd-d79d-48e2-bbb7-440f95a0264b")
 		)
@@ -12070,6 +12491,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 120.65 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "df40e86d-9e28-446d-ae2f-10c7abd8f1c8")
 		)
@@ -12130,6 +12560,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 204.47 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 204.47 62.23 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12205,6 +12644,15 @@
 				(hide yes)
 			)
 		)
+		(property "Part Number" ""
+			(at 87.63 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5ae44d8e-bfa3-44e7-a1e6-e59a2be523c1")
 		)
@@ -12265,6 +12713,15 @@
 		)
 		(property "Description" ""
 			(at 129.54 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Part Number" ""
+			(at 129.54 143.51 90)
 			(effects
 				(font
 					(size 1.27 1.27)
