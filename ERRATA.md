@@ -26,3 +26,16 @@ This is presumably caused by bad signal integrity due to 2-layer design, among o
 
 ### Fix
 In software reducing the Ethernet to 10M only seems to fix this.
+
+## Errata 4: Supplying with only 5v over USB
+
+When only USB power is supplied, the device periodically restarts
+
+### Investigation Notes
+- When proving 5v on USB, there is a spike on the uS scale to ~1v. This tells me this is getting loaded down somehow
+- It is random when, from power on, the device restarts. Sometimes instant, sometimes several seconds before the next restart. This tells me I am operating right on the edge of failure/working
+- When supplying the 12V barrel jack with 12V, I don't see a USB dropout issue. This tells me the 5/12v to 3.3v converter is OK, most likely problem is the 12V generation
+- Suspecting it might be something to do with the 5v to 12v boost converter section
+
+### Fix
+Root cause awaiting, TODO
