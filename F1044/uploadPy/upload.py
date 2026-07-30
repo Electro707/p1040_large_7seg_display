@@ -43,7 +43,7 @@ class InterfaceSocket:
 
 class Update:
     chunkSize = 8192
-    loopbackEnable = True       # set to True if the firmware has the debug line to print what was received
+    loopbackEnable = False       # set to True if the firmware has the debug line to print what was received
 
     def __init__(self):
         self.log = logging.getLogger('updater')
@@ -105,6 +105,7 @@ class Update:
                     return False
                 # now we send the raw bytes
                 self.interf.write(f.read(toSend))
+                _ = self.interf.readLine()
                 stat = self._waitForAck()
                 if not stat:
                     self.log.warning("unable to continue update")

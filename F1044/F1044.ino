@@ -38,7 +38,11 @@ EEPROMClass nvm("main");
 
 static bool eth_connected = false;
 
+// array of the segments enabled per display
+// Each bit is the enabled segments for that display
+uint8_t segDat[N_DISPLAYS] = { 0 };
 // an array of what displays to enable per segment
+// Due to the circuit, this is what is actually used in the update ISR
 uint8_t dispPerSeg[SEG_PER_DISPLAY] = { 0 };
 
 NetworkServer server(NETWORK_PORT);
@@ -100,8 +104,8 @@ void setup(void) {
 	updateTimeT = xTimerCreate("updateTimeT", pdMS_TO_TICKS(500), true, NULL, updateTimeCallback);
 
 	timeFormat = TIME_FORMAT_24HR;
-	// displayNumber(0);
-	setDisplayMode(DISPLAY_MODE_OFF);
+	displayAllDash();
+	setDisplayMode(DISPLAY_MODE_TIME);
 
 	// todo: rtos task for this?
 	timerAttachInterrupt(mainTimer, &realTimeIsr);
@@ -334,7 +338,7 @@ void updateTimeCallback(TimerHandle_t xTimer) {
 	dots = 0;
 	if(currTime.tm_sec & 0b01){
 		dots = (1 << 2);
-		dots = (1 << 4);
+		dots |= (1 << 4);
 	}
 
 	displayNumber(currTimeN, dots);
@@ -376,9 +380,6 @@ void setDisplayMode(mode_e newMode) {
 // }
 
 void displayNumber(int n, uint dotBitMap) {
-  // an array of what is displayed. Each value is the enabled segments for that display
-  static uint8_t segDat[N_DISPLAYS] = { 0 };
-  // todo: below is copied from another project, do for this one
   const uint8_t numberToSeg[10] = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F };
   const int power10[N_DISPLAYS] = { 1, 10, 100, 1000, 10000, 100000 };
 
@@ -392,9 +393,20 @@ void displayNumber(int n, uint dotBitMap) {
 		segDat[currDisp] |= 1 << 7;
 	}
   }
+  displayUpdate();
+  currDisplayedN = n;  // update global variable
+}
 
-  // segDat[0] = 0x03;           // test, segment A only
+// used to only display - for all segment
+void displayAllDash(void){
+	for (uint d = 0; d < N_DISPLAYS; d++) {
+		segDat[d] = 0x40;
+	}
+	displayUpdate();
+}
 
+// updates the array used to actually display to the display
+void displayUpdate(void){
   for (uint i = 0; i < SEG_PER_DISPLAY; i++) {
 	dispPerSeg[i] = 0;
 	for (int d = 0; d < N_DISPLAYS; d++) {
@@ -404,11 +416,10 @@ void displayNumber(int n, uint dotBitMap) {
 	}
   }
 
-  currDisplayedN = n;  // update global variable
 }
 
-uint8_t currentSegment = 0;  // the current segment to be displayed
 void realTimeIsr(void) {
+	static uint8_t currentSegment = 0;  // the current segment to be displayed
 
 	digitalWrite(IO_SHIFT_OE_L, HIGH);
 

@@ -85,7 +85,7 @@ void ParserHandler::parse(char b){
 void ParserHandler::handleFirmwareUpdate(char b){
     fwBuffer[fwBufferIdx++] = b;
     if(--expectedFwBytes == 0){
-        DEBUG("received fw bytes");
+        // DEBUG("received fw bytes");
         // we are done, can ACK and call the update function
         Update.write(fwBuffer, fwBufferIdx);
         txAck();
