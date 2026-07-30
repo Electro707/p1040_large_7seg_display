@@ -43,6 +43,7 @@ class InterfaceSocket:
 
 class Update:
     chunkSize = 8192
+    loopbackEnable = True       # set to True if the firmware has the debug line to print what was received
 
     def __init__(self):
         self.log = logging.getLogger('updater')
@@ -62,10 +63,11 @@ class Update:
         return True
 
     def setUartBaud(self, newBaud: int):
-        # todo: this in firmware
         self._writeSerAck(f'set uartBaud {newBaud:d}')
         self.interf.ser.flush()
         self.interf.ser.baudrate = newBaud
+        # check for ping again, fail if not
+        return self.checkPing()
 
     def setTimeMode(self, newMode: int):
         self._writeSerAck(f'set mode {newMode:s}')
@@ -135,6 +137,8 @@ class Update:
         self.interf.write(s.encode()+b'\n')
 
     def _readLine(self) -> str:
+        if self.loopbackEnable:
+            _ = self.interf.readLine()
         r = self.interf.readLine()
         r = r.decode().strip()
         self.log.debug(f"<- {r}")
@@ -166,8 +170,9 @@ def main():
     #   so better to turn the display off when updating
     u.setTimeMode('off')
 
+    # todo: no worky with firmware. probably due to arduino overhead?
     # if isUart:
-        # u.setUartBaud(921600)
+        # u.setUartBaud(460800)
 
     stat = u.update(args.file)
     if not stat:

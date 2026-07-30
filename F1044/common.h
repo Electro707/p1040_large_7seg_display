@@ -12,7 +12,7 @@
 
 #define NETWORK_PORT        23      // for compatiblity with telnet
 
-#define N_DISPLAYS          4       // number of 7-segment displays
+#define N_DISPLAYS          6       // number of 7-segment displays
 #define SEG_PER_DISPLAY     8       // number of segments per display (with dot)
 
 #define ETH_PHY_TYPE ETH_PHY_LAN8720

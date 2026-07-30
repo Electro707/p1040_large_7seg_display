@@ -16,7 +16,7 @@
 #include "common.h"
 #include "comms.h"
 #include "wifiDefault.h"
-#include "micro_tz_d/zones.h"
+#include "zones.h"
 
 #define UPDATE_NOCRYPT
 #include <Update.h>
@@ -101,7 +101,7 @@ void setup(void) {
 
 	timeFormat = TIME_FORMAT_24HR;
 	// displayNumber(0);
-	setDisplayMode(DISPLAY_MODE_TIME);
+	setDisplayMode(DISPLAY_MODE_OFF);
 
 	// todo: rtos task for this?
 	timerAttachInterrupt(mainTimer, &realTimeIsr);
@@ -301,7 +301,7 @@ void nvmInit(){
 }
 
 void updateTimeCallback(TimerHandle_t xTimer) {
-  uint currTimeN;
+  uint currTimeN = 0;
   uint dots;
   time_t now;
   float tmp;
@@ -312,10 +312,10 @@ void updateTimeCallback(TimerHandle_t xTimer) {
   if (currTime.tm_year > (2016 - 1900)) {
 	switch (timeFormat) {
 	  case TIME_FORMAT_24HR:
-		currTimeN = currTime.tm_min + (currTime.tm_hour * 100);
+		currTimeN = currTime.tm_sec + (currTime.tm_min * 100) + (currTime.tm_hour * 10000);
 		break;
 	  case TIME_FORMAT_12HR:
-		currTimeN = currTime.tm_min + ((currTime.tm_hour % 12) * 100);
+		currTimeN = currTime.tm_sec + (currTime.tm_min * 100) + ((currTime.tm_hour % 12) * 10000);
 		break;
 	  case TIME_FORMAT_METRIC:
 		// get the current time as a proportion of the day
@@ -334,6 +334,7 @@ void updateTimeCallback(TimerHandle_t xTimer) {
 	dots = 0;
 	if(currTime.tm_sec & 0b01){
 		dots = (1 << 2);
+		dots = (1 << 4);
 	}
 
 	displayNumber(currTimeN, dots);
@@ -379,9 +380,7 @@ void displayNumber(int n, uint dotBitMap) {
   static uint8_t segDat[N_DISPLAYS] = { 0 };
   // todo: below is copied from another project, do for this one
   const uint8_t numberToSeg[10] = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F };
-  const int power10[N_DISPLAYS] = { 1, 10, 100, 1000 };
-
-  // todo: handle converting number to bcd
+  const int power10[N_DISPLAYS] = { 1, 10, 100, 1000, 10000, 100000 };
 
   uint toS;
 

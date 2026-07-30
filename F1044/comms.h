@@ -41,6 +41,6 @@ class ParserHandler{
         Print *printHandler;
 };
 
-extern HardwareSerial commsSerial;
+// extern HardwareSerial commsSerial;
 
 #endif

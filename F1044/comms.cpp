@@ -128,7 +128,7 @@ void ParserHandler::txNack(const char *errMsg){
     }
 
 void ParserHandler::processCommand(void){
-    DEBUG("<- %s", msg);
+    // DEBUG("<- %s", msg);
 
     char *token = strtok(msg, " ");
 
@@ -300,6 +300,17 @@ void ParserHandler::subcommandSet(char *token){
         tzset();
         txAck();
     }
+    else if(!strcmp(token, "uartBaud")){
+        MACRO_GET_NEXTARG("missing arg1");
+        tmpLong = atol(token);
+        if (tmpLong < 0) {
+            txNack("numb2er negative");
+            return;
+        }
+        txAck();
+        Serial.flush();
+        Serial.updateBaudRate(tmpLong);
+    }
     else {
         txNack("invalid sub-command");
     }
@@ -446,7 +457,7 @@ void ParserHandler::subcommandUpdate(char *token){
     else if(!strcmp(token, "cancel")){
         Update.abort();
         txAck();
-        DEBUG("end: %d", expectedFwBytes);
+        // DEBUG("end: %d", expectedFwBytes);
     }
     else{
         txNack("invalid sub-command");
