@@ -9,6 +9,7 @@
 #include <string.h>
 #include <SPI.h>
 #include <WiFiClient.h>
+#include <Network.h>
 #include <ETH.h>
 #include <WiFi.h>
 #include <EEPROM.h>
@@ -45,7 +46,8 @@ uint8_t segDat[N_DISPLAYS] = { 0 };
 // Due to the circuit, this is what is actually used in the update ISR
 uint8_t dispPerSeg[SEG_PER_DISPLAY] = { 0 };
 
-NetworkServer server(NETWORK_PORT);
+NetworkServer telnetServer(TELNET_PORT);
+NetworkClient telnetClient;  // for now only allow one client
 
 uint currDisplayedN = 0;  // the current number being displayed. Only to be updated in displayNumber
 
@@ -56,13 +58,13 @@ TimerHandle_t updateTimeT;
 
 bool isWifiEnabled = false;
 
-NetworkClient ethClient;  // for now only allow one client
 
 // parser struct for our custom parser
 ParserHandler serialParser;
 ParserHandler networkParser;
 
 void setup(void) {
+	Serial.setRxBufferSize(MAX_FW_BUFFER);
 	Serial.begin(115200);
 	DEBUG("begin");
 
@@ -144,45 +146,26 @@ void loop(void) {
 	// digitalWrite(IO_DEBUG_LED, !digitalRead(IO_DEBUG_LED));
 
 	// handle new client connections
-	if (server.hasClient()) {
-		if (ethClient.connected()) {
-			server.accept().stop();
+	if (telnetServer.hasClient()) {
+		if (telnetClient.connected()) {
+			telnetServer.accept().stop();
 		} else {
-			ethClient = server.accept();
-			networkParser.setPrintClass(&ethClient);
-			DEBUG("New client: %s", ethClient.remoteIP().toString().c_str());
+			telnetClient = telnetServer.accept();
+			networkParser.setPrintClass(&telnetClient);
+			DEBUG("New client: %s", telnetClient.remoteIP().toString().c_str());
 		}
 	}
 
 	// client read loop
-	if (ethClient.connected()) {
-		while (ethClient.available()) {
-			networkParser.parse(ethClient.read());
+	if (telnetClient.connected()) {
+		while (telnetClient.available()) {
+			networkParser.parse(telnetClient.read());
 		}
 	}
 
 	while (Serial.available()) {
 		serialParser.parse(Serial.read());
 	}
-
-	// delay(1000);
-
-	// delay(100);
-	// displayNumber(n);
-	// if(++n > 99) n = 0;
-
-	// int x = 1;
-	// for(int i=0;i<7;i++){
-	//     digitalWrite(IO_SHIFT_LDR, LOW);
-	//     vspi.transfer(x);
-	//     vspi.transfer(0x01);
-	//     digitalWrite(IO_SHIFT_LDR, HIGH);
-
-	//     x <<= 1;
-	//     delay(500);
-	// }
-
-	// showcaseLedCurrent();
 }
 
 // WARNING: onEvent is called from a separate FreeRTOS task (thread)!
@@ -207,13 +190,13 @@ void onNetworkEvent(arduino_event_id_t event) {
 			DEBUG("ETH Got IP %s", ETH.localIP().toString().c_str());
 			eth_connected = true;
 			configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-			server.begin();
-			server.setNoDelay(true);
+			telnetServer.begin();
+			telnetServer.setNoDelay(true);
 			break;
 		case ARDUINO_EVENT_ETH_LOST_IP:
 			DEBUG("ETH Lost IP");
 			eth_connected = false;
-			server.end();
+			telnetServer.end();
 			break;
 		case ARDUINO_EVENT_ETH_DISCONNECTED:
 			DEBUG("ETH Disconnected");
@@ -228,7 +211,7 @@ void onNetworkEvent(arduino_event_id_t event) {
 			DEBUG("ETH Stopped");
 			eth_connected = false;
 			break;
-		
+
 		case ARDUINO_EVENT_WIFI_OFF:				 DEBUG("Wifi is set to off"); break;
 		case ARDUINO_EVENT_WIFI_READY:               DEBUG("WiFi interface ready"); break;
 		case ARDUINO_EVENT_WIFI_SCAN_DONE:           DEBUG("Completed scan for access points"); break;
@@ -250,12 +233,12 @@ void onNetworkEvent(arduino_event_id_t event) {
 		case ARDUINO_EVENT_WIFI_STA_GOT_IP:
 			DEBUG("Obtained Wifi IP address: %s", WiFi.localIP().toString().c_str());
 			configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-			server.begin();
-			server.setNoDelay(true);
+			telnetServer.begin();
+			telnetServer.setNoDelay(true);
 			break;
 		case ARDUINO_EVENT_WIFI_STA_LOST_IP:
 			DEBUG("Lost Wifi IP address and IP address is reset to 0");
-			server.end();
+			telnetServer.end();
 			break;
 		case ARDUINO_EVENT_WPS_ER_SUCCESS:          DEBUG("WiFi Protected Setup (WPS): succeeded in enrollee mode"); break;
 		case ARDUINO_EVENT_WPS_ER_FAILED:           DEBUG("WiFi Protected Setup (WPS): failed in enrollee mode"); break;

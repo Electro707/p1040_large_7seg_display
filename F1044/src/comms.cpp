@@ -69,7 +69,7 @@ void ParserHandler::parse(char b){
                 msgIdx = 0;
                 printHandler->print("\r\n");
             }
-            
+
         }
     }
     else{
@@ -78,7 +78,7 @@ void ParserHandler::parse(char b){
         } else {
             parseTelnetDetokenized(b);
         }
-        
+
     }
 }
 
@@ -141,8 +141,8 @@ void ParserHandler::processCommand(void){
         printHandler->println("pong!");
     }
     else if (!strcmp(token, "exit")) {
-        if(ethClient.connected()){
-            ethClient.stop();
+        if(telnetClient.connected()){
+            telnetClient.stop();
         }
     }
     else if (!strcmp(token, "get")) {
@@ -170,7 +170,7 @@ void ParserHandler::processCommand(void){
 
 void ParserHandler::subcommandSet(char *token){
     int32_t tmpLong;
-    
+
     token = strtok(NULL, " ");
     if(token == NULL){
         txNack("missing sub-arg");
@@ -182,7 +182,7 @@ void ParserHandler::subcommandSet(char *token){
 
         if (!strcmp(token, "off")) {
             setDisplayMode(DISPLAY_MODE_OFF);
-        } 
+        }
         else if (!strcmp(token, "numb")) {
             setDisplayMode(DISPLAY_MODE_NUMB);
         }
@@ -420,7 +420,7 @@ void ParserHandler::subcommandUpdate(char *token){
             txNack("zero update size");
             return;
         }
-        stat = Update.begin(tmpLong);
+        stat = Update.begin(tmpLong, U_FLASH, -1, LOW, NULL);
         if(!stat){
             txNack("failed to init update");
             return;
@@ -455,7 +455,9 @@ void ParserHandler::subcommandUpdate(char *token){
         }
     }
     else if(!strcmp(token, "cancel")){
-        Update.abort();
+        if(Update.isRunning()){
+            Update.abort();
+        }
         txAck();
         // DEBUG("end: %d", expectedFwBytes);
     }

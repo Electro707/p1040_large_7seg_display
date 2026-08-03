@@ -10,7 +10,7 @@
 #define FW_VERSION "F1044 Rev 1-dev2"
 #define NETWORK_HOSTNAME "esp32-f1044"
 
-#define NETWORK_PORT        23      // for compatiblity with telnet
+#define TELNET_PORT         23      // for compatiblity with telnet
 
 #define N_DISPLAYS          6       // number of 7-segment displays
 #define SEG_PER_DISPLAY     8       // number of segments per display (with dot)
@@ -57,14 +57,14 @@ typedef enum{
     TIME_FORMAT_METRIC
 }timeFormat_e;
 
-#if N_DISPLAYS >= 4 
+#if N_DISPLAYS >= 4
     #define DISPLAY_MODE_TIME_EN
 #endif
 
 extern mode_e currMode;
 extern timeFormat_e timeFormat;
 extern uint currDisplayedN;
-extern NetworkClient ethClient;
+extern NetworkClient telnetClient;
 extern char wifiSsid[32];
 extern char wifiPassword[32];
 extern bool isWifiEnabled;

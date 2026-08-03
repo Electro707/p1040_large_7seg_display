@@ -2,18 +2,25 @@
 A python script to update the F1044 firmware with a given binary file exported from Arduino
 """
 import time
-
+from typing import Optional
 import serial
 import argparse
 from pathlib import Path
 import logging
 import os
 import socket
+import abc
 
+class InterfaceType(abc.ABC):
+    @abc.abstractmethod
+    def write(self, s: bytes):
+        ...
+    def readLine(self) -> bytes:
+        ...
 
-class InterfaceSer:
+class InterfaceSer(InterfaceType):
     def __init__(self, port):
-        self.ser = serial.Serial(port, 115200, timeout=1)
+        self.ser = serial.Serial(port, 115200, timeout=2)
 
     def write(self, s: bytes):
         self.ser.write(s)
@@ -22,7 +29,7 @@ class InterfaceSer:
         r = self.ser.read_until()
         return r
 
-class InterfaceSocket:
+class InterfaceSocket(InterfaceType):
     def __init__(self, ip, host):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((ip, host))
@@ -47,7 +54,7 @@ class Update:
 
     def __init__(self):
         self.log = logging.getLogger('updater')
-        self.interf = None
+        self.interf = None      # type: Optional[InterfaceType]
 
     def connectUart(self, port):
         self.interf = InterfaceSer(port)
@@ -76,10 +83,14 @@ class Update:
         self._writeSer('reboot')
 
     def debugCancelLastUpdate(self):
+        if self.interf is None:
+            raise UserWarning("Interface not set")
         self.interf.write(b"\x00"*self.chunkSize)
         self._writeSerAck("update cancel")
 
     def update(self, file: Path):
+        if self.interf is None:
+            raise UserWarning("Interface not set")
         if not os.path.isfile(file):
             self.log.warning("file given is not a file")
             return False
@@ -89,7 +100,7 @@ class Update:
             binLen = os.path.getsize(file)
 
             # in case we had a previous on-going firmware update
-            self._writeSerAck("update cancel")
+            # self._writeSerAck("update cancel")
 
             stat = self._writeSerAck(f"update begin {binLen:d}")
             if not stat:
@@ -105,7 +116,7 @@ class Update:
                     return False
                 # now we send the raw bytes
                 self.interf.write(f.read(toSend))
-                _ = self.interf.readLine()
+                # _ = self.interf.readLine()
                 stat = self._waitForAck()
                 if not stat:
                     self.log.warning("unable to continue update")
@@ -134,10 +145,14 @@ class Update:
         return True
 
     def _writeSer(self, s: str):
+        if self.interf is None:
+            raise UserWarning("Interface not set")
         self.log.debug(f"-> {s}")
         self.interf.write(s.encode()+b'\n')
 
     def _readLine(self) -> str:
+        if self.interf is None:
+            raise UserWarning("Interface not set")
         if self.loopbackEnable:
             _ = self.interf.readLine()
         r = self.interf.readLine()
@@ -171,9 +186,10 @@ def main():
     #   so better to turn the display off when updating
     u.setTimeMode('off')
 
-    # todo: no worky with firmware. probably due to arduino overhead?
-    # if isUart:
-        # u.setUartBaud(460800)
+    if isUart:
+        if not u.setUartBaud(1000000):
+            print("Did not return ping after baud rate change")
+            return
 
     stat = u.update(args.file)
     if not stat:
