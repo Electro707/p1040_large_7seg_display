@@ -6,6 +6,7 @@
  * - https://github.com/espressif/arduino-esp32/blob/master/libraries/WiFi/examples/WiFiTelnetToSerial/WiFiTelnetToSerial.ino
  *
  */
+#include <Arduino.h>
 #include <string.h>
 #include <SPI.h>
 #include <WiFiClient.h>
@@ -17,6 +18,7 @@
 #include "common.h"
 #include "comms.h"
 #include "wifiDefault.h"
+#include "modbus.h"
 #include "zones.h"
 
 #define UPDATE_NOCRYPT
@@ -47,7 +49,11 @@ uint8_t segDat[N_DISPLAYS] = { 0 };
 uint8_t dispPerSeg[SEG_PER_DISPLAY] = { 0 };
 
 NetworkServer telnetServer(TELNET_PORT);
-NetworkClient telnetClient;  // for now only allow one client
+NetworkServer modbusServer(MODBUS_PORT);
+NetworkClient telnetClient[TELNET_MAX_CLIENTS];  // for now only allow one client
+NetworkClient modbusClients[MODBUS_MAX_CLIENTS];
+
+modbusC_s modbusHandlers[MODBUS_MAX_CLIENTS];
 
 uint currDisplayedN = 0;  // the current number being displayed. Only to be updated in displayNumber
 
@@ -58,114 +64,25 @@ TimerHandle_t updateTimeT;
 
 bool isWifiEnabled = false;
 
-
 // parser struct for our custom parser
 ParserHandler serialParser;
 ParserHandler networkParser;
 
-void setup(void) {
-	Serial.setRxBufferSize(MAX_FW_BUFFER);
-	Serial.begin(115200);
-	DEBUG("begin");
+char fwVersion[FW_VERSION_STR_LEN] = FW_VERSION;
 
-	digitalWrite(IO_SHIFT_OE_L, HIGH);
-	digitalWrite(IO_SHIFT_OE_H, HIGH);
-
-	pinMode(IO_SHIFT_OE_L, OUTPUT);
-	pinMode(IO_SHIFT_OE_H, OUTPUT);
-	pinMode(IO_SHIFT_LDR, OUTPUT);
-	pinMode(IO_SHIFT_RST, OUTPUT);
-	pinMode(IO_SHIFT_CLK, OUTPUT);  // todo: does SPI need it? should it be set on it's own
-	pinMode(IO_SHIFT_DAT, OUTPUT);
-	pinMode(IO_ETH_EN_CLK, OUTPUT);
-	pinMode(IO_ETH_RST, OUTPUT);
-	pinMode(IO_DEBUG_LED, OUTPUT);
-
-	// todo: for some reason digitalWrite before pinMode doesn't set the IO state. Look into
-	digitalWrite(IO_SHIFT_OE_L, HIGH);
-	digitalWrite(IO_SHIFT_OE_H, HIGH);
-	digitalWrite(IO_ETH_RST, LOW);
-
-	vspi.begin(IO_SHIFT_CLK, -1, IO_SHIFT_DAT, -1);
-	vspi.setHwCs(false);
-	vspi.beginTransaction(SPISettings(spiClk, MSBFIRST, SPI_MODE0));
-
-	// reset LED segments on bootup
-	digitalWrite(IO_SHIFT_RST, HIGH);
-	digitalWrite(IO_SHIFT_LDR, LOW);
-	vspi.transfer(0x00);
-	vspi.transfer(0x00);
-	digitalWrite(IO_SHIFT_LDR, HIGH);
-	digitalWrite(IO_SHIFT_OE_L, LOW);
-	digitalWrite(IO_SHIFT_OE_H, LOW);
-
-	// startup NVM read
-	nvmInit();
-	nvmLoad();
-
-	updateTimeT = xTimerCreate("updateTimeT", pdMS_TO_TICKS(500), true, NULL, updateTimeCallback);
-
-	timeFormat = TIME_FORMAT_24HR;
-	displayAllDash();
-	setDisplayMode(DISPLAY_MODE_TIME);
-
-	// todo: rtos task for this?
-	timerAttachInterrupt(mainTimer, &realTimeIsr);
-	timerAlarm(mainTimer, 1000, true, 0);  // every 500uS call the real-time interrupt
-
-	delay(1000);
-	DEBUG("begin ether");
-	digitalWrite(IO_ETH_EN_CLK, HIGH);
-	delay(50);
-	digitalWrite(IO_ETH_RST, HIGH);
-	delay(10);
-
-	Network.onEvent(onNetworkEvent);
-	WiFi.setHostname(NETWORK_HOSTNAME);
-	WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
-	ETH.setHostname(NETWORK_HOSTNAME);
-	ETH.setAutoNegotiation(false);
-	ETH.setLinkSpeed(10);
-	ETH.setFullDuplex(true);
-
-
-#ifdef CONNECT_ETHERNET
-	ETH.begin(ETH_PHY_TYPE, ETH_PHY_ADDR, ETH_PHY_MDC, ETH_PHY_MDIO, ETH_PHY_POWER, ETH_CLK_MODE);
-#endif
-#ifdef CONNECT_WIFI
-	WiFi.begin(wifiSsid, wifiPassword);
-#endif
-
-	serialParser.setPrintClass(&Serial);
-
-	DEBUG("postBegin");
+// gets called from onNetworkEvent when we get an IP address, either WiFi or Ethernet
+void onNetworkConnected(void){
+	configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+	telnetServer.begin();
+	telnetServer.setNoDelay(true);
+	modbusServer.begin();
+	modbusServer.setNoDelay(true);
 }
 
-void loop(void) {
-	static uint8_t n = 0;
-	// digitalWrite(IO_DEBUG_LED, !digitalRead(IO_DEBUG_LED));
-
-	// handle new client connections
-	if (telnetServer.hasClient()) {
-		if (telnetClient.connected()) {
-			telnetServer.accept().stop();
-		} else {
-			telnetClient = telnetServer.accept();
-			networkParser.setPrintClass(&telnetClient);
-			DEBUG("New client: %s", telnetClient.remoteIP().toString().c_str());
-		}
-	}
-
-	// client read loop
-	if (telnetClient.connected()) {
-		while (telnetClient.available()) {
-			networkParser.parse(telnetClient.read());
-		}
-	}
-
-	while (Serial.available()) {
-		serialParser.parse(Serial.read());
-	}
+// gets called from onNetworkEvent when we loose an IP address
+void onNetworkClosed(void){
+	telnetServer.end();
+	modbusServer.end();
 }
 
 // WARNING: onEvent is called from a separate FreeRTOS task (thread)!
@@ -189,14 +106,12 @@ void onNetworkEvent(arduino_event_id_t event) {
 		case ARDUINO_EVENT_ETH_GOT_IP:
 			DEBUG("ETH Got IP %s", ETH.localIP().toString().c_str());
 			eth_connected = true;
-			configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-			telnetServer.begin();
-			telnetServer.setNoDelay(true);
+			onNetworkConnected();
 			break;
 		case ARDUINO_EVENT_ETH_LOST_IP:
 			DEBUG("ETH Lost IP");
 			eth_connected = false;
-			telnetServer.end();
+			onNetworkClosed();
 			break;
 		case ARDUINO_EVENT_ETH_DISCONNECTED:
 			DEBUG("ETH Disconnected");
@@ -232,13 +147,11 @@ void onNetworkEvent(arduino_event_id_t event) {
 		case ARDUINO_EVENT_WIFI_STA_AUTHMODE_CHANGE: DEBUG("Authentication mode of access point has changed"); break;
 		case ARDUINO_EVENT_WIFI_STA_GOT_IP:
 			DEBUG("Obtained Wifi IP address: %s", WiFi.localIP().toString().c_str());
-			configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
-			telnetServer.begin();
-			telnetServer.setNoDelay(true);
+			onNetworkConnected();
 			break;
 		case ARDUINO_EVENT_WIFI_STA_LOST_IP:
 			DEBUG("Lost Wifi IP address and IP address is reset to 0");
-			telnetServer.end();
+			onNetworkClosed();
 			break;
 		case ARDUINO_EVENT_WPS_ER_SUCCESS:          DEBUG("WiFi Protected Setup (WPS): succeeded in enrollee mode"); break;
 		case ARDUINO_EVENT_WPS_ER_FAILED:           DEBUG("WiFi Protected Setup (WPS): failed in enrollee mode"); break;
@@ -277,7 +190,7 @@ void nvmLoad(void){
 	nvm.readBytes(1+32, wifiPassword, 32);
 }
 
-void nvmInit(){
+void nvmInit(void){
 	if (!nvm.begin(0x200)) {
 		// todo: this came from their example. is restarting the best?
 		DEBUG("Failed to initialize nvm");
@@ -287,15 +200,15 @@ void nvmInit(){
 	}
 }
 
-void updateTimeCallback(TimerHandle_t xTimer) {
+void updateTimeCallback(TimerHandle_t xTimer){
   uint currTimeN = 0;
   uint dots;
   time_t now;
   float tmp;
 
   // basically doing the same as getLocalTime in `esp32-hal-time.c`, but no timeout. if it fails it fails
-  time(&now);
-  localtime_r(&now, &currTime);
+//   time(&now);
+//   localtime_r(&now, &currTime);
   if (currTime.tm_year > (2016 - 1900)) {
 	switch (timeFormat) {
 	  case TIME_FORMAT_24HR:
@@ -325,6 +238,9 @@ void updateTimeCallback(TimerHandle_t xTimer) {
 	}
 
 	displayNumber(currTimeN, dots);
+
+	// debug
+	currTime.tm_sec++;
   }
 }
 
@@ -345,22 +261,18 @@ void setDisplayMode(mode_e newMode) {
   }
 }
 
-// a test I did to demonstrate to myself that the display must be driven one segment at at time due to current limiter per display
-// void showcaseLedCurrent(void){
-//     digitalWrite(IO_SHIFT_LDR, LOW);
-//     vspi.transfer(0xFF);
-//     vspi.transfer(0x01);
-//     digitalWrite(IO_SHIFT_LDR, HIGH);
+// updates the array used to actually display to the display
+void displayUpdate(void){
+  for (uint i = 0; i < SEG_PER_DISPLAY; i++) {
+	dispPerSeg[i] = 0;
+	for (int d = 0; d < N_DISPLAYS; d++) {
+	  if (segDat[d] & (1 << i)) {
+		dispPerSeg[i] |= 1 << d;
+	  }
+	}
+  }
 
-//     delay(1000);
-
-//     digitalWrite(IO_SHIFT_LDR, LOW);
-//     vspi.transfer(0x03);
-//     vspi.transfer(0x01);
-//     digitalWrite(IO_SHIFT_LDR, HIGH);
-
-//     delay(1000);
-// }
+}
 
 void displayNumber(int n, uint dotBitMap) {
   const uint8_t numberToSeg[10] = { 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F };
@@ -388,34 +300,176 @@ void displayAllDash(void){
 	displayUpdate();
 }
 
-// updates the array used to actually display to the display
-void displayUpdate(void){
-  for (uint i = 0; i < SEG_PER_DISPLAY; i++) {
-	dispPerSeg[i] = 0;
-	for (int d = 0; d < N_DISPLAYS; d++) {
-	  if (segDat[d] & (1 << i)) {
-		dispPerSeg[i] |= 1 << d;
-	  }
-	}
-  }
-
-}
-
 void realTimeIsr(void) {
 	static uint8_t currentSegment = 0;  // the current segment to be displayed
+	// static uint8_t currentDisplay = 0;  // the current segment to be displayed
 
-	digitalWrite(IO_SHIFT_OE_L, HIGH);
+	digitalWrite(IO_SHIFT_OE_CAT, HIGH);
+	digitalWrite(IO_SHIFT_OE_ANA, HIGH);
 
-	digitalWrite(IO_SHIFT_LDR, HIGH);
+	digitalWrite(IO_SHIFT_LDR, LOW);
 	vspi.transfer(1 << currentSegment);
 	vspi.transfer(dispPerSeg[currentSegment]);
-	digitalWrite(IO_SHIFT_LDR, LOW);
+	delayMicroseconds(10);
 	digitalWrite(IO_SHIFT_LDR, HIGH);
 
-	delayMicroseconds(10);
-	digitalWrite(IO_SHIFT_OE_L, LOW);
+	digitalWrite(IO_SHIFT_OE_CAT, LOW);
+	digitalWrite(IO_SHIFT_OE_ANA, LOW);
 
 	if(++currentSegment >= SEG_PER_DISPLAY){
 		currentSegment = 0;
+	}
+}
+
+void setup(void) {
+	Serial.setRxBufferSize(MAX_FW_BUFFER);
+	Serial.begin(115200);
+	DEBUG("begin");
+	// delay(5000);
+
+	digitalWrite(IO_SHIFT_OE_CAT, HIGH);
+	digitalWrite(IO_SHIFT_OE_ANA, HIGH);
+
+	pinMode(IO_SHIFT_OE_CAT, OUTPUT);
+	pinMode(IO_SHIFT_OE_ANA, OUTPUT);
+	pinMode(IO_SHIFT_LDR, OUTPUT);
+	pinMode(IO_SHIFT_RST, OUTPUT);
+	pinMode(IO_SHIFT_CLK, OUTPUT);  // todo: does SPI need it? should it be set on it's own
+	pinMode(IO_SHIFT_DAT, OUTPUT);
+	pinMode(IO_ETH_EN_CLK, OUTPUT);
+	pinMode(IO_ETH_RST, OUTPUT);
+	pinMode(IO_DEBUG_LED, OUTPUT);
+
+	// todo: for some reason digitalWrite before pinMode doesn't set the IO state. Look into
+	digitalWrite(IO_SHIFT_OE_CAT, HIGH);
+	digitalWrite(IO_SHIFT_OE_ANA, HIGH);
+	digitalWrite(IO_ETH_RST, LOW);
+
+	vspi.begin(IO_SHIFT_CLK, -1, IO_SHIFT_DAT, -1);
+	vspi.setHwCs(false);
+	vspi.beginTransaction(SPISettings(spiClk, MSBFIRST, SPI_MODE0));
+
+	// reset LED segments on bootup
+	digitalWrite(IO_SHIFT_RST, HIGH);
+	digitalWrite(IO_SHIFT_LDR, LOW);
+	vspi.transfer(0x00);
+	vspi.transfer(0x00);
+	digitalWrite(IO_SHIFT_LDR, HIGH);
+	digitalWrite(IO_SHIFT_OE_CAT, LOW);
+	digitalWrite(IO_SHIFT_OE_ANA, LOW);
+
+	// startup NVM read
+	nvmInit();
+	nvmLoad();
+
+	updateTimeT = xTimerCreate("updateTimeT", pdMS_TO_TICKS(500), true, NULL, updateTimeCallback);
+
+	timeFormat = TIME_FORMAT_24HR;
+	// displayAllDash();
+	// setDisplayMode(DISPLAY_MODE_TIME);
+	displayNumber(88, 0);
+	setDisplayMode(DISPLAY_MODE_NUMB);
+
+	// todo: rtos task for this?
+	timerAttachInterrupt(mainTimer, &realTimeIsr);
+	timerAlarm(mainTimer, 1000, true, 0);  // every 500uS call the real-time interrupt
+
+	for(u8 i=0;i<MODBUS_MAX_CLIENTS;i++){
+		modbusHandlers[i].client = &modbusClients[i];
+		modbusInit(&modbusHandlers[i]);
+	}
+
+	// delay(2000);
+	DEBUG("begin ether");
+	digitalWrite(IO_ETH_EN_CLK, HIGH);
+	delay(50);
+	digitalWrite(IO_ETH_RST, HIGH);
+	delay(10);
+
+	// delay(1000);
+	Network.onEvent(onNetworkEvent);
+
+	// delay(1000);
+#ifdef CONNECT_ETHERNET
+	ETH.setHostname(NETWORK_HOSTNAME);
+	ETH.setAutoNegotiation(false);
+	ETH.setLinkSpeed(10);
+	ETH.setFullDuplex(true);
+	ETH.begin(ETH_PHY_TYPE, ETH_PHY_ADDR, ETH_PHY_MDC, ETH_PHY_MDIO, ETH_PHY_POWER, ETH_CLK_MODE);
+#endif
+#ifdef CONNECT_WIFI
+	WiFi.setHostname(NETWORK_HOSTNAME);
+	WiFi.config(INADDR_NONE, INADDR_NONE, INADDR_NONE, INADDR_NONE);
+	WiFi.begin(wifiSsid, wifiPassword);
+#endif
+
+	serialParser.setPrintClass(&Serial);
+
+	DEBUG("postBegin");
+}
+
+// goes through ana array of clients to figure out which one is empty
+NetworkClient *getFreeClient(NetworkClient *n, uint32 maxC){
+	while(maxC--){
+		if(n->connected() == false){
+			return n;
+		}
+		n++;
+	}
+	return NULL;
+}
+
+void loop(void) {
+	static uint8_t n = 0;
+	NetworkClient *freeClient;
+	int32 i;
+	// digitalWrite(IO_DEBUG_LED, !digitalRead(IO_DEBUG_LED));
+
+	// handle new client connections
+	if (telnetServer.hasClient()) {
+		freeClient = getFreeClient(telnetClient, TELNET_MAX_CLIENTS);
+		if (freeClient == NULL) {
+			// accept the client connection, but immediately disconnect
+			DEBUG("Max clients connected, refusing new connection\n");
+			telnetServer.accept().stop();
+		} else {
+			*freeClient = telnetServer.accept();
+			networkParser.setPrintClass(freeClient);
+			DEBUG("New client: %s", freeClient->remoteIP().toString().c_str());
+		}
+	}
+
+	// handle new modbus client connections
+	if (modbusServer.hasClient()) {
+		freeClient = getFreeClient(modbusClients, MODBUS_MAX_CLIENTS);
+		if (freeClient == NULL) {
+			// accept the client connection, but immediately disconnect
+			modbusServer.accept().stop();
+		} else {
+			*freeClient = modbusServer.accept();
+			DEBUG("New modbus client: %s", freeClient->remoteIP().toString().c_str());
+		}
+	}
+
+	// client read loop
+	// todo: hack as we only have 1 client max for telnet
+	if (telnetClient[0].connected()) {
+		while (telnetClient[0].available()) {
+			networkParser.parse(telnetClient[0].read());
+		}
+	}
+
+	for(i=0;i<MODBUS_MAX_CLIENTS;i++){
+		// only process what we have connected
+		if(modbusClients[i].connected() == false){
+			continue;
+		}
+		while (modbusClients[i].available()) {
+			modbusProcessByte(&modbusHandlers[i], modbusClients[i].read());
+		}
+	}
+
+	while (Serial.available()) {
+		serialParser.parse(Serial.read());
 	}
 }

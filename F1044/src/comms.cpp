@@ -141,8 +141,9 @@ void ParserHandler::processCommand(void){
         printHandler->println("pong!");
     }
     else if (!strcmp(token, "exit")) {
-        if(telnetClient.connected()){
-            telnetClient.stop();
+        // todo: hack, only 1 available now
+        if(telnetClient[0].connected()){
+            telnetClient[0].stop();
         }
     }
     else if (!strcmp(token, "get")) {

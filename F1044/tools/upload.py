@@ -155,9 +155,14 @@ class Update:
             raise UserWarning("Interface not set")
         if self.loopbackEnable:
             _ = self.interf.readLine()
-        r = self.interf.readLine()
-        r = r.decode().strip()
-        self.log.debug(f"<- {r}")
+        while True:
+            r = self.interf.readLine()
+            r = r.decode().strip()
+            self.log.debug(f"<- {r}")
+            # keep reading until we don't get a debug thing
+            if r.startswith("[DBG]"):
+                continue
+            break
         return r
 
 
@@ -169,10 +174,13 @@ def main():
 
     u = Update()
 
-    if ':' in args.serIp:
-        ip, port = args.serIp.split(':')
-        port = int(port)
-        u.connectSocket(ip, port)
+    if '.' in args.serIp:
+        ipAndPort = args.serIp.split(':')
+        if len(ipAndPort) == 2:
+            port = int(ipAndPort[1])
+        else:
+            port = 23
+        u.connectSocket(ipAndPort[0], port)
         isUart = False
     else:
         u.connectUart(args.serIp)
