@@ -5,7 +5,7 @@
 
 This project is a driver for some large 4in 7-segment displays
 
-IMAGE COMING SOON!
+![Image of project](https://pbs.twimg.com/media/Gw_2ZdNWUAA-rl7?format=jpg&name=large)
 
 # Directory Structure
 - `CAD`: All FreeCAD enclosure related stuff
@@ -26,9 +26,11 @@ IMAGE COMING SOON!
 
 Known issues, and any workarounds, are documented in [ERRATA.md](ERRATA.md)
 
+# Firmware
+For more info on the firmware, including building and programming, see [F1044/README.md](F1044/README.md)
+
 # License
 This project is licensed under [GPLv3](LICENSE.md)**
 
 ** This excludes the files in `E1041 - PCB, Driver Board/ExternalStep`, as they came from the manufacturer.
-** Also excludes the files `zones.c` and `zones.h` in `F1044`, as those are modified from the [micro_tz_d library](https://github.com/jdlambert/micro_tz_db/tree/master) which is under an MIT
-license
+** Also excludes the files `zones.c` and `zones.h` in `F1044`, as those are modified from the [micro_tz_d library](https://github.com/jdlambert/micro_tz_db/tree/master) which is under an MIT license
