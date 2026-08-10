@@ -2,33 +2,13 @@
 rev 1-dev
 
 == Purpose
-The purpose of this document is to describe the F1044 firmware.
-
-== Development Information
-
-=== Toolchain
-The following tools and libraries are used to build this library:
-
-[%autowidth]
-|===
-|Type|Name|Revision
-
-|IDE
-|Arduino IDE
-|2.3.2
-
-|Arduino Board
-|esp32 by Espressif
-|3.2.0
-|===
-
-=== Target
-This firmware is only designed to be ran on an ESP32-Pico-D4 on an E1041 PCBA.
+The purpose of this document is to describe the F1044 firmware's function and command set
 
 == Functional Description
-The F1044 firmware controls up to 4 7-segment displays. The displays are intended to be 4" displays.
+The F1044 firmware controls up to 8 7-segment displays. The displays are intended to be 4" displays.
 
-NOTE: While the firmware can handle up to 8 displays as per hardware, it has not been tested yet!
+NOTE: While the firmware can handle up to 8 displays as per hardware, it has only been tested for 6 displays, although
+there is no reason it shouldn't work with 8.
 
 === Modes
 This firmware has the following run-time modes:
@@ -76,17 +56,18 @@ The following table describes what is stored.
 This firmware is communicated with over the following interfaces:
 
 * Serial over USB, 115200 baud, 8N1
-* Ethernet, telnet, port 23
+* Ethernet or WiFi, telnet, port 23
+* Ethernet or WiFi, ModBus, port 502 (IN PROGRESS)
 
-All command frames sent to/from the device are in ASCII text mode, with either carriage-return (\r) or line-feed (\n) ending per frame.
+All command frames sent to/from the device over serial or Telnet are in ASCII text mode, with either carriage-return (\r) or line-feed (\n) ending per frame.
 
-If a command doesn't sent back a return value, an acknowlegment (ACK) may be sent back as the string "ok".
-Any non-acknowlegments (NACK) may be sent as "error: X", where X is a human description of the error.
+If a command doesn't sent back a return value, an acknowledgment (ACK) may be sent back as the string "ok".
+Any non-acknowledgments (NACK) may be sent as "error: X", where X is a human description of the error.
 
 ==== Ethernet, Telnet
 This firmware handles being connected over Telnet directly, allowing to connect to this firmware over the built-in `telnet` command on many UNIX systems.
 
-The following telnet commands are handled:
+The following telnet commands (different than the commands on the firmware) are handled:
 
 * DO
 * WILL

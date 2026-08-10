@@ -41,8 +41,9 @@ The uploading in PIO is setup to use that script. You can change the port used i
 > TODO: Have the config use the port given in VSCode.
 > TODO: Have a seperate config that uses esptool to upload, same build settings
 
-## Documentation
-The documentation for this project is written in AsciiDoc, and uses Asciidoctor to generate a PDF or HTML page.
+## Extra Documentation
+The documentation for this project, mainly pertaining to the commands, is written in AsciiDoc, and uses Asciidoctor to generate a PDF or HTML page.
+
 The docs can be built with:
 ```bash
 asciidoctor "doc/F1044 Doc.adoc"        # for HTML
